@@ -7,10 +7,11 @@ import {
 } from "@/components/ui/tooltip";
 import { formatNumber } from "@/lib/utils";
 import { TokenResultsList } from "./TokenResultsList";
+import type { TokenPrice } from "@/types";
 
 interface TokenResultsProps {
-  sourceToken: any;
-  targetToken: any;
+  sourceToken: TokenPrice;
+  targetToken: TokenPrice;
   totalUSD: string;
 }
 
