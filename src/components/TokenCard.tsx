@@ -29,7 +29,11 @@ export const TokenCard = () => {
 
   useEffect(() => {
     if (!isLoading && error) {
-      toast.error("Error fetching token prices" + error?.message);
+      const errMsg = `Sorry we are unable to fetch the latest token prices. Please try again later.`;
+      toast.error("Failed to Fetch Token Prices", {
+        description: errMsg,
+        duration: 10000,
+      });
     }
   }, [isLoading, error]);
 
