@@ -1,4 +1,5 @@
 "use client";
+
 import { useEffect, useRef } from "react";
 import "./preloader.css";
 
@@ -37,7 +38,7 @@ export const Preloader = ({ isVisible }: { isVisible: boolean }) => {
       ref={ref}
       id="preloader"
       className={
-        "flex flex-col items-center justify-center fixed inset-0 bg-stone-100 dark:bg-slate-950 active"
+        "flex flex-col items-center justify-center fixed inset-0 bg-stone-100 dark:bg-gradient-to-b dark:from-slate-950 dark:to-[#0f0e0e] active"
       }
     >
       <svg
