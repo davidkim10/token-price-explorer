@@ -2,7 +2,7 @@
   --base-delay: 0.0875s;
   opacity: 0;
   z-index: -1;
-  transition: opacity 300ms ease, transform 600ms ease-out;
+  transition: opacity 300ms ease, transform 500ms ease-out;
   transform: scale(0);
   border-radius: 10%;
 }

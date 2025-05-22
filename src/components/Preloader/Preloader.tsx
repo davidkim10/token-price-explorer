@@ -34,6 +34,11 @@ export const Preloader = ({ isVisible }: { isVisible: boolean }) => {
 
   const hidePreloader = () => {
     ref.current?.classList.remove("active");
+    ref.current?.addEventListener(
+      "transitionend",
+      () => setTimeout(() => ref.current?.classList.add("hidden"), 500),
+      { once: true }
+    );
   };
 
   return (
