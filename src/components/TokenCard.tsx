@@ -45,13 +45,20 @@ export const TokenCard = () => {
   }
 
   function formatTotalValue(value: string): string {
+    const MAX_VALUE = 1000000000000;
+    const REGEX_COMMA = /\B(?=(\d{3})+(?!\d))/g;
+
+    if (Number(value) > MAX_VALUE) {
+      return MAX_VALUE.toString().replace(REGEX_COMMA, ",");
+    }
+
     if (value.endsWith(".")) {
       const [integer] = value.split(".");
-      return integer.replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ".";
+      return integer.replace(REGEX_COMMA, ",") + ".";
     }
 
     const [integer, decimal] = value.split(".");
-    const formattedInteger = integer.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    const formattedInteger = integer.replace(REGEX_COMMA, ",");
 
     return decimal
       ? `${formattedInteger}.${decimal.slice(0, 2)}`
@@ -87,7 +94,22 @@ export const TokenCard = () => {
       return;
     }
 
-    setTotalUSD(formatTotalValue(value));
+    if (value.endsWith(".")) {
+      setTotalUSD(value);
+      return;
+    }
+
+    if (value.startsWith("0") && value.length > 1 && !value.includes(".")) {
+      const decimalValue = `0.${value.slice(1)}`;
+      setTotalUSD(formatTotalValue(decimalValue));
+      return;
+    }
+
+    const [integer, decimal] = value.split(".");
+    const cleanInteger = integer.replace(/^0+/, "") || "0";
+    const cleanValue = decimal ? `${cleanInteger}.${decimal}` : cleanInteger;
+
+    setTotalUSD(formatTotalValue(cleanValue));
   };
 
   return (
