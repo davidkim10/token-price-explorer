@@ -1,0 +1,44 @@
+import commaNumber from "comma-number";
+import { TokenResultsSkeleton } from "./TokenResultsSkeleton";
+import Image from "next/image";
+
+interface TokenResultsProps {
+  sourceToken: any;
+  targetToken: any;
+  totalUSD: string;
+}
+
+export const TokenResultsList: React.FC<TokenResultsProps> = ({
+  sourceToken,
+  targetToken,
+  totalUSD,
+}) => {
+  function calculateTokenAmount(unitPrice: number) {
+    const totalAmountUSD = parseFloat(totalUSD) || 0;
+    const tokenAmount = totalAmountUSD / unitPrice;
+    return commaNumber(tokenAmount || 0);
+  }
+
+  if (!sourceToken || !targetToken) {
+    return <TokenResultsSkeleton />;
+  }
+
+  return (
+    <div className="flex flex-col gap-2">
+      {[sourceToken, targetToken].map((token) => (
+        <div
+          className="flex justify-between text-gray-400 gap-2"
+          key={token.symbol}
+        >
+          <span className="flex items-center gap-2 font-bold">
+            <Image src={token.icon} alt={token.symbol} width={16} height={16} />{" "}
+            {token?.symbol}
+          </span>
+          <span className="text-ellipsis overflow-hidden">
+            {calculateTokenAmount(token?.price)}
+          </span>
+        </div>
+      ))}
+    </div>
+  );
+};
