@@ -2,7 +2,6 @@
 
 import { useState, useId, useEffect, useMemo } from "react";
 import { toast } from "sonner";
-import commaNumber from "comma-number";
 import { ArrowUpDown, DollarSign } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -41,6 +40,24 @@ export const TokenCard = () => {
     return TOKEN_CONFIG.filter((t) => t.symbol !== token.symbol);
   }
 
+  function formatTotalValue(value: string): string {
+    if (value.endsWith(".")) {
+      const [integer] = value.split(".");
+      return integer.replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ".";
+    }
+
+    const [integer, decimal] = value.split(".");
+    const formattedInteger = integer.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+    return decimal
+      ? `${formattedInteger}.${decimal.slice(0, 2)}`
+      : formattedInteger;
+  }
+
+  function isValidTotalValue(value: string): boolean {
+    return /^-?\d*\.?\d*$/.test(value);
+  }
+
   /*********************************
    * EVENT HANDLERS
    *********************************/
@@ -50,8 +67,23 @@ export const TokenCard = () => {
   };
 
   const handleSetTotal = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.replace(/,/g, "");
-    setTotalUSD(commaNumber(value));
+    const value = e.target.value?.replace(/,/g, "").trim();
+
+    if (value === "") {
+      setTotalUSD("");
+      return;
+    }
+
+    if (value === ".") {
+      setTotalUSD("0.");
+      return;
+    }
+
+    if (!isValidTotalValue(value)) {
+      return;
+    }
+
+    setTotalUSD(formatTotalValue(value));
   };
 
   return (
@@ -86,7 +118,7 @@ export const TokenCard = () => {
             </div>
 
             <label
-              className="rounded-lg bg-gray-50 dark:border-gray-800 dark:bg-slate-800/30 p-4 block"
+              className="rounded-lg bg-gray-50 dark:border-gray-800 dark:bg-slate-800/30 p-4 block focus-within:border-ring focus-within:ring-ring/50 focus-within:ring-[2px]"
               htmlFor={textfieldFromId}
             >
               <span className="text-sm text-gray-400 mb-2 block font-medium">
