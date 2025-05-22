@@ -21,9 +21,9 @@ export const TokenResults = ({
 }: TokenResultsProps) => {
   const tokens = [sourceToken, targetToken];
   return (
-    <div className="rounded-lg bg-gray-100 dark:bg-slate-800/20 p-3 text-sm font-medium">
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-md font-bold">Token Breakdown</h2>
+    <div className="rounded-lg bg-stone-100 dark:bg-slate-800/20 p-3 text-sm font-medium">
+      <div className="flex justify-between items-center mb-4 text-gray-400 dark:text-gray-600">
+        <h2 className="text-sm text-gray-400 font-medium">Token Breakdown</h2>
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger>

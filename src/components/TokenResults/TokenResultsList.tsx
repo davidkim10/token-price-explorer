@@ -28,7 +28,7 @@ export const TokenResultsList: React.FC<TokenResultsProps> = ({
     <div className="flex flex-col gap-2">
       {[sourceToken, targetToken].map((token) => (
         <div
-          className="flex justify-between text-gray-400 gap-2"
+          className="flex justify-between text-gray-600 dark:text-gray-400 gap-2"
           key={token.symbol}
         >
           <span className="flex items-center gap-2 font-bold">
