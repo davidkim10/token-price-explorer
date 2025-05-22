@@ -7,12 +7,12 @@ export const Preloader = ({ isVisible }: { isVisible: boolean }) => {
   const ref = useRef<HTMLDivElement>(null);
   const svgElement = ref.current?.firstChild as SVGElement | null;
   const paths = svgElement?.querySelectorAll("path");
-  const lastAnimatedChild = paths?.[paths.length - 1];
 
   useEffect(() => {
     if (!svgElement) return;
 
     const handleTransitionEnd = (e: TransitionEvent) => {
+      const lastAnimatedChild = paths?.[paths.length - 1];
       const isAnimationComplete = e.target === lastAnimatedChild;
       if (!isAnimationComplete) return;
 
