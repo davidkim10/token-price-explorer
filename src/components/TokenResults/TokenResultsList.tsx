@@ -2,10 +2,11 @@ import Image from "next/image";
 import { formatNumber } from "@/lib/utils";
 import { TokenResultsSkeleton } from "./TokenResultsSkeleton";
 import { AnimatedText } from "../AnimateText";
+import { TokenPrice } from "@/types";
 
 interface TokenResultsProps {
-  sourceToken: any;
-  targetToken: any;
+  sourceToken: TokenPrice;
+  targetToken: TokenPrice;
   totalUSD: string;
 }
 
