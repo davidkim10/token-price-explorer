@@ -5,23 +5,23 @@ export const AnimatedText = ({ text }: { text: string }) => {
 
   useEffect(() => {
     setIsVisible(false);
-    const timer = setTimeout(() => setIsVisible(true), 50);
+    const timer = setTimeout(() => setIsVisible(true), 40);
     return () => clearTimeout(timer);
   }, [text]);
 
   return (
-    <span className="inline-flex">
+    <span className="truncate">
       {text.split("").map((char, index) => (
         <span
-          key={`${char}-${index}`}
+          key={`${text}-${index}`}
           className={`
             inline-block
             transition-all
-            duration-500
+            duration-400
             ${isVisible ? "opacity-100 blur-0" : "opacity-0 blur-md"}
           `}
           style={{
-            transitionDelay: `${index * 50}ms`,
+            transitionDelay: `${index * 40}ms`,
             transform: isVisible ? "translateY(0)" : "translateY(10px)",
           }}
         >

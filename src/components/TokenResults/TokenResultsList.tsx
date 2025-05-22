@@ -36,9 +36,10 @@ export const TokenResultsList: React.FC<TokenResultsProps> = ({
             <Image src={token.icon} alt={token.symbol} width={16} height={16} />{" "}
             {token?.symbol}
           </span>
+
           <span
             key={`${token.symbol}-${token.price}`}
-            className="text-ellipsis overflow-hidden"
+            className="flex-1 text-right truncate"
           >
             <AnimatedText text={calculateTokenAmount(token?.price)} />
           </span>
