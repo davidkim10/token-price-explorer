@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useId, useEffect, useMemo } from "react";
+import { useState, useId, useEffect } from "react";
 import { toast } from "sonner";
 import { ArrowUpDown, DollarSign } from "lucide-react";
 import { Button } from "@/components/ui/button";
