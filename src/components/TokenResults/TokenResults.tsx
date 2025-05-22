@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { Info } from "lucide-react";
 import {
   Tooltip,
@@ -6,6 +5,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { formatNumber } from "@/lib/utils";
 import { TokenResultsList } from "./TokenResultsList";
 
 interface TokenResultsProps {
@@ -19,6 +19,7 @@ export const TokenResults = ({
   targetToken,
   totalUSD,
 }: TokenResultsProps) => {
+  const tokens = [sourceToken, targetToken];
   return (
     <div className="rounded-lg bg-gray-100 dark:bg-slate-800/20 p-3 text-sm font-medium">
       <div className="flex justify-between items-center mb-4">
@@ -29,22 +30,23 @@ export const TokenResults = ({
               <Info size={16} className="text-gray-400" />
             </TooltipTrigger>
             <TooltipContent>
-              <h3 className="text-sm font-semibold mb-1 text-gray-600">
+              <h3 className="text-sm font-semibold mb-1 text-gray-400 dark:text-gray-600">
                 Unit Price
               </h3>
-              <div className="text-sm flex justify-between gap-2 text-gray-600">
-                <span className="font-semibold mr-2">{sourceToken.symbol}</span>
-                <span className="text-ellipsis overflow-hidden">
-                  {sourceToken.price}
-                </span>
-              </div>
 
-              <div className="text-sm flex justify-between gap-2 text-gray-600">
-                <span className="font-semibold mr-2">{targetToken.symbol}</span>
-                <span className="text-ellipsis overflow-hidden">
-                  {targetToken.price}
-                </span>
-              </div>
+              {tokens.map((token) => (
+                <div
+                  className="text-xs flex justify-between gap-2 text-gray-400 dark:text-gray-600"
+                  key={token.symbol}
+                >
+                  <span className="text-xs font-semibold mr-2">
+                    {token.symbol}
+                  </span>
+                  <span className="text-xs text-ellipsis overflow-hidden">
+                    {formatNumber(token.price)}
+                  </span>
+                </div>
+              ))}
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>

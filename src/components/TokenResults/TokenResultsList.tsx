@@ -1,6 +1,7 @@
-import commaNumber from "comma-number";
-import { TokenResultsSkeleton } from "./TokenResultsSkeleton";
 import Image from "next/image";
+import { formatNumber } from "@/lib/utils";
+import { TokenResultsSkeleton } from "./TokenResultsSkeleton";
+import { AnimatedText } from "../AnimateText";
 
 interface TokenResultsProps {
   sourceToken: any;
@@ -16,7 +17,7 @@ export const TokenResultsList: React.FC<TokenResultsProps> = ({
   function calculateTokenAmount(unitPrice: number) {
     const totalAmountUSD = parseFloat(totalUSD) || 0;
     const tokenAmount = totalAmountUSD / unitPrice;
-    return commaNumber(tokenAmount || 0);
+    return formatNumber(tokenAmount);
   }
 
   if (!sourceToken || !targetToken) {
@@ -34,8 +35,11 @@ export const TokenResultsList: React.FC<TokenResultsProps> = ({
             <Image src={token.icon} alt={token.symbol} width={16} height={16} />{" "}
             {token?.symbol}
           </span>
-          <span className="text-ellipsis overflow-hidden">
-            {calculateTokenAmount(token?.price)}
+          <span
+            key={`${token.symbol}-${token.price}`}
+            className="text-ellipsis overflow-hidden"
+          >
+            <AnimatedText text={calculateTokenAmount(token?.price)} />
           </span>
         </div>
       ))}
