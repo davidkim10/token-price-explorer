@@ -11,6 +11,18 @@ export const Preloader = ({ isVisible }: { isVisible: boolean }) => {
 
   useEffect(() => {
     if (!svgElement) return;
+
+    const handleTransitionEnd = (e: TransitionEvent) => {
+      const isAnimationComplete = e.target === lastAnimatedChild;
+      if (!isAnimationComplete) return;
+
+      if (!isVisible) {
+        hidePreloader();
+      }
+
+      svgElement?.classList.toggle("active");
+    };
+
     svgElement.classList.remove("active");
     svgElement.addEventListener("transitionend", handleTransitionEnd);
 
@@ -22,15 +34,6 @@ export const Preloader = ({ isVisible }: { isVisible: boolean }) => {
 
   const hidePreloader = () => {
     ref.current?.classList.remove("active");
-    svgElement?.classList.remove("active");
-  };
-
-  const handleTransitionEnd = (e: TransitionEvent) => {
-    const isAnimationComplete = e.target === lastAnimatedChild;
-    if (isAnimationComplete) {
-      svgElement?.classList.toggle("active");
-      !isVisible && hidePreloader();
-    }
   };
 
   return (
