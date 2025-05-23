@@ -36,6 +36,14 @@ After reviewing the project overview, one of my first considerations was how to 
 
 One of the assumptions I made was a reasonable amount of time to give the user accurate and up to date information. Currently, the application is set to refetch token prices every 10 seconds to provide users with near real-time data This interval can be adjusted in the `useTokenPrice` hook.
 
+Given more time, I would further explore options to optimize the data fetching of the token prices. Refetching seems to work fine for this use case, but we are making API requests quite frequently.
+
+#### Preloader / Loading State
+
+I added a preloader to the application to improve the UX and to show case the brand of Fun.xyz. There is an animated logo that displays when the app first loads and fetches the initial token prices. I intentionally made a small performance tradeoff (~0-500ms) to show the animated logo and finish at least one full animation cycle before the user can see the application. Even if the data fetching is complete, the preloader will wait until the animation finishes before hiding itself.
+
+Given more time I would have like to explore Next's built in Loading UI feature (loading.js file) to see if I could leverage this technology for the given requirements above.
+
 #### Shadcn
 
 I chose to use Shadcn in this project to help me rapidly build a UI that looks clean, modern, accessible, and performant. It is highly customizable and designed for projects that leverage Tailwind CSS. For example, Shadcn enabled me to add dark mode in minutes, optimizing the UX and giving users more accessibility options
