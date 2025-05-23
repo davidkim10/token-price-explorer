@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { TokenSelector } from "@/components/TokenSelector";
 import { TokenResults } from "@/components/TokenResults/TokenResults";
-import { Preloader } from "@/components/Preloader/Preloader";
 import { useTokenPrice } from "@/lib/hooks/useTokenPrices";
 import { TOKEN_CONFIG } from "@/lib/constants";
 import { Token } from "@/types";
@@ -22,7 +21,6 @@ export const TokenCard = () => {
     selectTargetToken
   );
 
-  const isPreloaderVisible = isLoading && !!sourceToken && !!targetToken;
   const isTokenResultsVisible = !!totalUSD && !!sourceToken && !!targetToken;
   const sourceTokenDropdownItems = filterTokenDropdownItems(selectTargetToken);
   const targetTokenDropdownItems = filterTokenDropdownItems(selectSourceToken);
@@ -175,8 +173,6 @@ export const TokenCard = () => {
           </div>
         </CardContent>
       </Card>
-
-      <Preloader isVisible={isPreloaderVisible} />
     </>
   );
 };

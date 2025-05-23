@@ -1,12 +1,14 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useTokenPrice } from "@/lib/hooks/useTokenPrices";
 import "./preloader.css";
 
-export const Preloader = ({ isVisible }: { isVisible: boolean }) => {
+export const Preloader = () => {
   const ref = useRef<HTMLDivElement>(null);
   const svgElement = ref.current?.firstChild as SVGElement | null;
   const paths = svgElement?.querySelectorAll("path");
+  const { isLoading } = useTokenPrice();
 
   useEffect(() => {
     if (!svgElement) return;
@@ -16,7 +18,7 @@ export const Preloader = ({ isVisible }: { isVisible: boolean }) => {
       const isAnimationComplete = e.target === lastAnimatedChild;
       if (!isAnimationComplete) return;
 
-      if (!isVisible) {
+      if (!isLoading) {
         hidePreloader();
       }
 
@@ -30,7 +32,7 @@ export const Preloader = ({ isVisible }: { isVisible: boolean }) => {
       svgElement.removeEventListener("transitionend", handleTransitionEnd);
       svgElement.classList.remove("active");
     };
-  }, [isVisible, svgElement]);
+  }, [isLoading, svgElement]);
 
   const hidePreloader = () => {
     ref.current?.classList.remove("active");
