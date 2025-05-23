@@ -34,7 +34,7 @@ I reached out to the recruiter to clarify the design requirements and the flexib
 
 After reviewing the project overview, one of my first considerations was how to handle the token price data. TanStack Query fit my technical requirements and use case well. It’s a well-documented library that simplifies fetching, caching, and refetching data in React applications.
 
-One of the assumptions I made was a reasonable amount of time to give the user accurate and up to date information. Currently, the application is set to refetch token prices every 10 seconds to provide users with near real-time data This interval can be adjusted in the `useTokenPrice` hook.
+One of the assumptions I made was a reasonable amount of time to give the user accurate and up to date information. Currently, the application is set to refetch token prices every 10 seconds to provide users with near real-time data. This interval can be adjusted in the `useTokenPrice` hook.
 
 Given more time, I would further explore options to optimize the data fetching of the token prices. Refetching seems to work fine for this use case, but we are making API requests quite frequently.
 
